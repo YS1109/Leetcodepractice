@@ -26,4 +26,7 @@ package question;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Q4 {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        return 0;
+    }
 }

@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class Q3 {
     public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        Map<Character, Integer> map = new HashMap<>();
         int maxLength = 0, start = 0, end = 0;
         for (; end < s.length(); end++){
             if (map.containsKey(s.charAt(end))){
