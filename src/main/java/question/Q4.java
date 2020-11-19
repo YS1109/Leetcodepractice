@@ -33,23 +33,48 @@ package question;
  * 我们要找的中位数都是第（nums1.length + nums2.length + 1） / 2 和(nums1.length + nums2.length + 2）/ 2个元素的和再除以2
  * 例如：length分别是4和5，要找的就是(4 + 5 + 1) / 2 = 5个元素与(4 + 5 + 2) / 2 = 5个元素的和除以2
  * 如果length是4和6，要找的就是(4 + 6 + 1) / 2 = 5个元素和(4 + 6 + 2) / 2 = 6个元素的和除以2
+ * 当然为了效率也可以进行奇偶判断
  *2.结束情况：
  * 一共分为两种：n = 1 时 返回两个数组中第一个元素小的那个， 当一个数组被排除完时，返回另一个数组的第n个元素
  */
 public class Q4 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if ((nums1.length + nums2.length) % 2 == 1) {
+            return findNthSmallestNum((nums1.length + nums2.length + 1) / 2, nums1, nums2, 0, 0);
+        }
         double midNum1 = findNthSmallestNum((nums1.length + nums2.length + 1) / 2, nums1, nums2,0 , 0);
         double midNum2 = findNthSmallestNum((nums1.length + nums2.length + 2) / 2, nums1, nums2, 0, 0);
         return (midNum1 + midNum2) / 2 ;
     }
 
     private double findNthSmallestNum(int index, int[] nums1, int[] nums2, int left1, int left2) {
-        if (nums1[((index / 2) - 1) + left1] >= nums2[((index / 2) - 1) + left2]) {
-            left2 = ((index / 2) - 1) + left2;
-            index = (index - (index / 2)) + 1;
+        if ((nums1.length - left1) > (nums2.length - left2)) {
+            return findNthSmallestNum(index, nums2, nums1, left2, left1);
+        }
+        if (nums1.length  == left1) {
+            return nums2[left2 + index - 1];
+        }
+        if (index == 1) {
+            return nums1[left1] > nums2[left2] ? nums2[left2] : nums1[left1];
+        }
+        // 避免length小于indec / 2 的情况
+        if ((nums1.length - left1) < index / 2) {
+            if (nums1[nums1.length - 1] < nums2[index / 2 - 1 + left2]) {
+                return nums2[index - (nums1.length - left1) - 1 + left2];
+            } else {
+                left2 = index / 2  + left2 ;
+                index = index - index / 2;
+            }
         } else {
-            left1 = ((index / 2) - 1) + left1;
-            index = (index - (index / 2)) + 1;
+            if (nums1[index / 2 - 1 + left1] >= nums2[index / 2 - 1 + left2]) {
+                // left2 = index / 2 - 1 + left2 + 1
+                left2 = index / 2  + left2 ;
+                index = index - index / 2;
+            } else {
+                // left1 = index / 2 - 1 + left1 + 1
+                left1 = left1 + index / 2;
+                index = index - index / 2;
+            }
         }
         return findNthSmallestNum(index, nums1, nums2, left1 ,left2);
     }
