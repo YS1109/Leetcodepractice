@@ -2,12 +2,13 @@ package leetcodetest;
 
 import org.junit.Test;
 import question.Q3;
+import question.Q5;
 
 public class LeetCodeTest {
 
     @Test
-    public void Q3Test(){
-        Q3 question = new Q3();
-        System.out.println(question.lengthOfLongestSubstring("abcabcabcdqweascv"));
+    public void Q5Test(){
+        Q5 q5 = new Q5();
+        System.out.println(q5.longestPalindrome("cbbd"));
     }
 }

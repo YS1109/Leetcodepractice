@@ -48,12 +48,15 @@ public class Q4 {
     }
 
     private double findNthSmallestNum(int index, int[] nums1, int[] nums2, int left1, int left2) {
+        // 保证num1[]始终是较短的数组
         if ((nums1.length - left1) > (nums2.length - left2)) {
             return findNthSmallestNum(index, nums2, nums1, left2, left1);
         }
+        // num1[]所有都已元素排除
         if (nums1.length  == left1) {
             return nums2[left2 + index - 1];
         }
+        // index = 1 代表找两个数组最小的元素
         if (index == 1) {
             return nums1[left1] > nums2[left2] ? nums2[left2] : nums1[left1];
         }

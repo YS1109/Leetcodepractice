@@ -19,16 +19,18 @@ public class Q5 {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
 
-    /**
-     * 1.根据示例一得出返回出现的第一个最长的回文串
-     * 2.回文串的正中心一定与左边相同或者该位置两端的数相同，之后依次向前或向后比较计算长度。
-     * 3.主要边界情况： aaa 和 aaaa 这种类型 
-     */
+
     public String longestPalindrome(String s) {
-        return forceAnwser(s);
+        return dpAnswer(s);
     }
 
-    private String forceAnwser(String s) {
+    /**
+     * 暴力解法：
+     * 1.根据示例一得出返回出现的第一个最长的回文串
+     * 2.回文串的正中心一定与左边相同或者该位置两端的数相同，之后依次向前或向后比较计算长度。
+     * 3.主要边界情况： aaa 和 aaaa 这种类型
+     */
+    private String forceAnswer(String s) {
         char[] str = s.toCharArray();
         int  left = 0, right = 0, max_left = 0, max_right = 0, length = 0, max_length = 0;
         for (int now = 1; now < s.length(); now++) {
@@ -77,4 +79,41 @@ public class Q5 {
         }
         return result;
     }
+
+    /**
+     * DP解法
+     * 1.length == 1 时，一定为回文串
+     * 2.length == 2 时，只有两个char相同才能为回文串
+     * 3.length > 2 时，只有两边char相同且length - 2（两边各除去一个）为回文串时才为回文串
+     */
+    private String dpAnswer(String s) {
+        char[] str = s.toCharArray();
+        boolean[][] dp = new boolean[str.length + 1][str.length];
+        int maxLength = 0;
+        int left = -1;
+        int right = -1;
+        for (int i = 1; i <= str.length; i++) {
+            for (int j = 0; j + i - 1 < str.length; j++) {
+                if (i == 1) {
+                    dp[i][j] = true;
+                }
+                else if (i == 2) {
+                    dp[i][j] = (str[j] == str[j + i - 1]);
+                } else {
+                    dp[i][j] = (dp[i - 2][j + 1] && str[j] == str[j + i - 1]);
+                }
+                if (dp[i][j] && i > maxLength) {
+                    left = j;
+                    right = j + i - 1;
+                    maxLength = i;
+                }
+            }
+        }
+        StringBuffer result = new StringBuffer();
+        for (int i = left; i <= right; i++) {
+            result.append(str[i]);
+        }
+        return result.toString();
+    }
+
 }
