@@ -1,9 +1,9 @@
 package question;
 
 /**
- * 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
+ * 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行Z 字形排列。
  *
- * 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+ * 比如输入字符串为 "PAYPALISHIRING"行数为 3 时，排列如下：
  *
  * P   A   H   N
  * A P L S I I G
@@ -13,7 +13,7 @@ package question;
  * 请你实现这个将字符串进行指定行数变换的函数：
  *
  * string convert(string s, int numRows);
- *  
+ *
  *
  * 示例 1：
  *
@@ -31,7 +31,7 @@ package question;
  *
  * 输入：s = "A", numRows = 1
  * 输出："A"
- *  
+ *
  *
  * 提示：
  *
@@ -53,10 +53,47 @@ public class Q6 {
      * 3 5 9
      * 4   10
      *
-     * 找规律
-     * 
+     * 找规律：
+     * 总行数为row，当前行数为crow，则将2row - 2为一组数据，分为n组 (n从0开始)
+     * 每组数据第一行的下标为 n(2row - 2)
+     * 大于第一行小于最后一行的下标为 n(2row -2) + crow，n(2row - 2) + row + (row - 1 - crow)
+     * 最后一行的下标为 n(2row -2) + row - 1
+     * 需要考虑边界条件，最后一组计算得到下标是否存在
      */
     public String convert(String s, int numRows) {
-        return "";
+        //计算数据的组数
+        if (numRows == 1) {
+            return s;
+        }
+        int n = s.length() / (2 * numRows - 2);
+        StringBuffer result = new StringBuffer();
+        //第一行数的数据
+        for (int i = 0; i <= n ; i++) {
+            int index = i * (2 * numRows - 2);
+            if (index < s.length()) {
+                result.append(s.charAt(index));
+            }
+        }
+        //大于第一行小于最后一行的数据
+        for (int crow = 1; crow < numRows - 1; crow++) {
+            for (int i = 0; i <= n; i++) {
+                int index1 = i * (2 * numRows - 2) + crow;
+                int index2 = i * (2 * numRows - 2) + (numRows - 1) + (numRows - 1 - crow);
+                if (index1 < s.length()) {
+                    result.append(s.charAt(index1));
+                }
+                if (index2 < s.length()) {
+                    result.append(s.charAt(index2));
+                }
+            }
+        }
+        //最后一行的数据
+        for (int i = 0; i <= n ; i++) {
+            int index = i * (2 * numRows - 2) + (numRows - 1);
+            if (index < s.length()) {
+                result.append(s.charAt(index));
+            }
+        }
+        return result.toString();
     }
 }
