@@ -60,7 +60,7 @@ public class Q4 {
         if (index == 1) {
             return nums1[left1] > nums2[left2] ? nums2[left2] : nums1[left1];
         }
-        // 避免length小于indec / 2 的情况
+        // 避免length小于index / 2 的情况
         if ((nums1.length - left1) < index / 2) {
             if (nums1[nums1.length - 1] < nums2[index / 2 - 1 + left2]) {
                 return nums2[index - (nums1.length - left1) - 1 + left2];
