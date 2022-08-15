@@ -1,4 +1,4 @@
-package question;
+package question1_10;
 
 /**
  * 给定两个大小为 m 和 n 的有序数组nums1和nums2。

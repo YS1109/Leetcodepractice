@@ -1,4 +1,4 @@
-package question;
+package question1_10;
 
 public class Q5 {
     /**
