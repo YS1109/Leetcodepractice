@@ -23,11 +23,13 @@ public class Q11 {
             area = Math.max(area, Math.min(height[left], height[right]) * width);
             if (height[left] < height[right]) {
                 int currentValue = height[left];
-                while (left != right && currentValue >= height[++left]) {
+                while (true) {
+                    if (left == right || currentValue < height[++left]) break;
                 }
             } else {
                 int currentValue = height[right];
-                while (left != right && currentValue >= height[--right]) {
+                while (true) {
+                    if (left == right || currentValue < height[--right]) break;
                 }
             }
         }
