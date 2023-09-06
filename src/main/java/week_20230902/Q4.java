@@ -69,10 +69,12 @@ public class Q4 {
             count[c - 'a']++;
         }
 
+        //将出现的值汇总并排序
         TreeMap<Long, Integer> map = new TreeMap<>();
         for (long i : count) {
             map.put(-i, map.getOrDefault(-i, 0) + 1);
         }
+
         for (Map.Entry<Long, Integer> entry : map.entrySet()) {
             for (int i = 0; i < Math.min(k, entry.getValue()); i++) {
                 prod = (prod * -entry.getKey()) % 1000000007;
