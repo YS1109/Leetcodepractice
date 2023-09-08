@@ -66,8 +66,8 @@ public class Q18 {
                         c++;
                     } else {
                         result.add(Arrays.asList((int) x, (int) y, nums[c], nums[d]));
-                        for (c++; c < d && nums[c] == nums[c - 1]; c++) ; // 跳过重复数字
-                        for (d--; d > c && nums[d] == nums[d + 1]; d--) ; // 跳过重复数字
+                        for (c++; c < d && nums[c] == nums[c - 1]; c++) {}
+                        for (d--; d > c && nums[d] == nums[d + 1]; d--) {}
                     }
                 }
             }
