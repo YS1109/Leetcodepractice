@@ -29,34 +29,39 @@ public class Q25 {
         ListNode result = null;
         int count = 0;
         ListNode tmpHead = head;
-        while (true) {
-            if (head == null) {
-                if (result == null) {
-                    result = tmpHead;
-                }
-                break;
-            }
+        ListNode totalPreNode = null;
+        while (head != null) {
             count++;
+
             if (count == k) {
-                if (result == null) {
-                    result = tmpHead;
-                }
+
                 ListNode currentHead = tmpHead;
                 ListNode preNode = null;
-                ListNode nextNode = null;
-                for (int i = 0; i < k - 1; i++) {
-                    preNode = currentHead;
-                    currentHead = currentHead.next;
+                ListNode nextNode = currentHead.next;
+                // 1 2 3
+                for (int i = 0; i < k; i++) {
                     nextNode = currentHead.next;
                     currentHead.next = preNode;
+                    preNode = currentHead;
                     currentHead = nextNode;
                 }
-                tmpHead.next = nextNode;
+                if (result == null) {
+                    result = preNode;
+                }
+                tmpHead.next = currentHead;
+                if (totalPreNode != null) {
+                    totalPreNode.next = preNode;
+                }
+                totalPreNode = tmpHead;
                 tmpHead = nextNode;
                 count = 0;
+                head = nextNode;
             }
-            head = head.next;
+            else {
+                head = head.next;
+            }
+
         }
-        return result;
+        return result != null ? result : tmpHead;
     }
 }
