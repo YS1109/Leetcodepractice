@@ -1,5 +1,7 @@
 package question21_30;
 
+import common.ListNode;
+
 /**
  * 给你一个链表数组，每个链表都已经按升序排列。
  *
@@ -37,15 +39,6 @@ package question21_30;
  * lists[i].length 的总和不超过 10^4
  */
 public class Q23 {
-
-    class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-    }
-
     public ListNode mergeKLists(ListNode[] lists) {
         ListNode header = null;
         ListNode current = null;
